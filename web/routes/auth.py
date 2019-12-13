@@ -8,7 +8,7 @@ from random import getrandbits
 from smtplib import SMTPException
 
 
-bp = Blueprint('auth', __name__, url_prefix='/auth')
+bp = Blueprint('auth', __name__, url_prefix='/api/auth')
 
 
 @bp.route('/login', methods=['POST'])
@@ -58,7 +58,7 @@ def register():
     return jsonify(success=True, message='We send you a conformation email')
 
 
-@bp.route('/send/<email_token>')
+@bp.route('/check/<email_token>')
 def check_mail(email_token):
     user = User.query.filter_by(email_token=email_token).first()
     if user is None or not user.check_email_token(user.email_token):
