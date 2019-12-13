@@ -1,4 +1,6 @@
-from web.models import users
-from web import db
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
-db.create_all()
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+

@@ -1,7 +1,8 @@
-from flask import render_template, url_for
-from flask_mail import Message
-from web import mail
+from flask import render_template
+from flask_mail import Message, Mail
 from config import mail_sender
+
+mail = Mail()
 
 
 def send_email(to, subject, email_token):

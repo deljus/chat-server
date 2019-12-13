@@ -10,3 +10,4 @@ psycopg2
 eventlet
 Flask-Mail
 Flask-Testing
+gunicorn

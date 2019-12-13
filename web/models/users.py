@@ -1,7 +1,6 @@
-from web import db, login, bcrypt
+from . import db
 from flask_login import UserMixin
 from dataclasses import dataclass
-
 
 @dataclass
 class User(UserMixin, db.Model):
@@ -33,8 +32,3 @@ class User(UserMixin, db.Model):
 
     def check_email_token(self, token):
         return self.email_token == token
-
-
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))

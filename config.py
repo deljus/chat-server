@@ -2,15 +2,15 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-user = os.environ['POSTGRES_USER']
-pwd = os.environ['POSTGRES_PASSWORD']
-db = os.environ['POSTGRES_DB']
+user = os.environ.get('POSTGRES_USER')
+pwd = os.environ.get('POSTGRES_PASSWORD')
+db = os.environ.get('POSTGRES_DB')
 host = 'db'
 port = '5432'
-mail_sender = os.environ['MAIL_DEFAULT_SENDER']
+mail_sender = os.environ.get('MAIL_DEFAULT_SENDER')
 
 
-class Config(object):
+class Config:
     SECRET_KEY = os.environ.get('APP_SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'postgres://%s:%s@%s:%s/%s' % (user, pwd, host, port, db)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -21,3 +21,4 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     SERVER_NAME = os.environ.get('SERVER_NAME')
+

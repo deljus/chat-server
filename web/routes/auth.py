@@ -1,15 +1,18 @@
-from flask import request, jsonify
+from flask import request, jsonify, Blueprint
 from flask_expects_json import expects_json
 from flask_login import login_user, logout_user, current_user
-from web import app, db, schemas
-from web.models.users import User
-from web.utils.mail import send_email
+from ..utils.schemas import login as login_schema, register as register_schema
+from ..models.users import User, db
+from ..utils.mail import send_email
 from random import getrandbits
 from smtplib import SMTPException
 
 
-@app.route('/login', methods=['POST'])
-@expects_json(schemas.login)
+bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+
+@bp.route('/login', methods=['POST'])
+@expects_json(login_schema)
 def login():
     if current_user.is_authenticated:
         return jsonify(success=True)
@@ -21,14 +24,14 @@ def login():
     return jsonify(success=True, redirect='/')
 
 
-@app.route('/logout')
+@bp.route('/logout')
 def logout():
     logout_user()
     return jsonify(success=True, redirect='/login')
 
 
-@app.route('/register', methods=['POST'])
-@expects_json(schemas.register)
+@bp.route('/register', methods=['POST'])
+@expects_json(register_schema)
 def register():
     if current_user.is_authenticated:
         return jsonify(message='User already exist'), 401
@@ -55,7 +58,7 @@ def register():
     return jsonify(success=True, message='We send you a conformation email')
 
 
-@app.route('/send/<email_token>')
+@bp.route('/send/<email_token>')
 def check_mail(email_token):
     user = User.query.filter_by(email_token=email_token).first()
     if user is None or not user.check_email_token(user.email_token):
