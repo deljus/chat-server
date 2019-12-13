@@ -6,5 +6,5 @@ MAIL_DEFAULT_SENDER=musindelus@gmail.com
 MAIL_SERVER=smtp.googlemail.com
 MAIL_PORT=587
 MAIL_USE_TLS=True
-MAIL_USERNAME=musindelus@gmail.com
-MAIL_PASSWORD=whileTrue1
+MAIL_USERNAME=xxxxxxxxxxx
+MAIL_PASSWORD=xxxxxxxxxxx
