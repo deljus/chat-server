@@ -1,4 +1,4 @@
-from . import db
+from . import db, bcrypt
 from flask_login import UserMixin
 from dataclasses import dataclass
 

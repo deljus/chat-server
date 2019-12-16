@@ -58,7 +58,7 @@ def register():
     return jsonify(success=True, message='We send you a conformation email')
 
 
-@bp.route('/validate-email', method=['POST'])
+@bp.route('/validate-email', methods=['POST'])
 def check_mail():
     data = request.json()
     email_token = data.email_token
@@ -68,6 +68,6 @@ def check_mail():
     user.set_approve_email()
     db.session.add(user)
     db.session.commit()
-    return jsonify(success=True, rerirect='/login')
+    return jsonify(success=True, redirect='/login')
 
 
