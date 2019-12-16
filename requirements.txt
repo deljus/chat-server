@@ -11,3 +11,4 @@ eventlet
 Flask-Mail
 Flask-Testing
 gunicorn
+flask-cors

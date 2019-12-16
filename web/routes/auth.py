@@ -30,7 +30,7 @@ def logout():
     return jsonify(success=True, redirect='/login')
 
 
-@bp.route('/register', methods=['POST'])
+@bp.route('/registration', methods=['POST'])
 @expects_json(register_schema)
 def register():
     if current_user.is_authenticated:
@@ -58,8 +58,10 @@ def register():
     return jsonify(success=True, message='We send you a conformation email')
 
 
-@bp.route('/check/<email_token>')
-def check_mail(email_token):
+@bp.route('/validate-email', method=['POST'])
+def check_mail():
+    data = request.json()
+    email_token = data.email_token
     user = User.query.filter_by(email_token=email_token).first()
     if user is None or not user.check_email_token(user.email_token):
         return jsonify(message="Invalid token"), 400
